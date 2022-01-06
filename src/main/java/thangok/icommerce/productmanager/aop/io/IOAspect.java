@@ -35,6 +35,6 @@ public class IOAspect {
         oSb.append(")");
         log.info(oSb.toString());
 
-        return joinPoint.proceed();
+        return result;
     }
 }
