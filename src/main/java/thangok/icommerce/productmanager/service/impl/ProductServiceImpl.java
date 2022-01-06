@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDTO> getAllProducts() {
         List<Product> productList = productRepository.findAll();
         if (productList.isEmpty()) {
-            return null;
+            return Page.empty();
         }
 
         List<ProductDTO> result = new ArrayList<>();
