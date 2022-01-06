@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import thangok.icommerce.productmanager.external.dto.BrandDTO;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,14 +13,14 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ProductDTO implements Serializable {
+public class ProductLargeDTO implements Serializable {
 
     private Long id;
 
     private String productName;
     private String description;
 
-    private String brandCode;
+    private BrandDTO brand;
     private String categoryCode;
     private String colorCode;
 

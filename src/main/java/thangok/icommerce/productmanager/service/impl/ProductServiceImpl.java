@@ -30,9 +30,13 @@ public class ProductServiceImpl implements ProductService {
 
         List<ProductDTO> result = new ArrayList<>();
         productList.stream().map(x -> new ProductDTO() {{
-            setProductCode(x.getProductCode());
+            setId(x.getId());
             setProductName(x.getProductName());
             setDescription(x.getDescription());
+            setCategoryCode(x.getCategoryCode());
+            setColorCode(x.getColorCode());
+            setPrice(x.getPrice());
+            setBrandCode(x.getBrandCode());
         }}).forEach(result::add);
 
         return new PageImpl<>(result);
@@ -53,15 +57,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = new Product();
-        product.setProductCode(productDTO.getProductCode());
         product.setProductName(productDTO.getProductName());
         product.setDescription(productDTO.getDescription());
+        product.setCategoryCode(productDTO.getCategoryCode());
+        product.setColorCode(productDTO.getColorCode());
+        product.setPrice(productDTO.getPrice());
+
+        product.setBrandCode(productDTO.getBrandCode());
 
         Product result = productRepository.save(product);
         return new ProductDTO() {{
-            setProductCode(result.getProductCode());
+            setId(result.getId());
             setProductName(result.getProductName());
             setDescription(result.getDescription());
+            setCategoryCode(result.getCategoryCode());
+            setColorCode(result.getColorCode());
+            setPrice(result.getPrice());
+            setBrandCode(result.getBrandCode());
         }};
     }
 
