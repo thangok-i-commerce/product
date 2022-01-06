@@ -12,19 +12,28 @@ import org.springframework.stereotype.Component;
 public class IOAspect {
     @Around("@annotation(LogIO)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-        StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("Enter method [%s] with parameters:(", joinPoint.getSignature()));
+        // input
+        StringBuilder iSb = new StringBuilder();
+        iSb.append(String.format("Enter method [%s] with parameters:(", joinPoint.getSignature()));
         Object[] args = joinPoint.getArgs();
         for (Object arg : args) {
-            sb.append(arg).append(",");
+            iSb.append(arg).append(",");
         }
         if (args.length > 0) {
-            sb.deleteCharAt(sb.length() - 1);
+            iSb.deleteCharAt(iSb.length() - 1);
         }
-        sb.append(")");
+        iSb.append(")");
+        log.info(iSb.toString());
 
-        log.info(sb.toString());
+        Object result = joinPoint.proceed();
+
+        // output
+        StringBuilder oSb = new StringBuilder();
+        oSb.append(String.format("Exit method [%s] with parameters:(", joinPoint.getSignature()));
+        oSb.append(result.toString());
+        oSb.append(")");
+        log.info(oSb.toString());
 
         return joinPoint.proceed();
     }
