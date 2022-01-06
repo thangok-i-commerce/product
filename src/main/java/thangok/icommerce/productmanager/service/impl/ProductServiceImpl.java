@@ -8,8 +8,11 @@ import thangok.icommerce.productmanager.aop.executiontime.LogExecutionTime;
 import thangok.icommerce.productmanager.aop.io.LogIO;
 import thangok.icommerce.productmanager.dto.ProductDTO;
 import thangok.icommerce.productmanager.entity.Product;
+import thangok.icommerce.productmanager.external.dto.BrandDTO;
+import thangok.icommerce.productmanager.external.service.BrandService;
 import thangok.icommerce.productmanager.repository.ProductRepository;
 import thangok.icommerce.productmanager.service.ProductService;
+import thangok.icommerce.productmanager.service.exception.BrandNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    BrandService brandService;
 
     @Override
     public Page<ProductDTO> getAllProducts() {
@@ -55,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
     @LogExecutionTime
     @LogIO
     @Override
-    public ProductDTO createProduct(ProductDTO productDTO) {
+    public ProductDTO createProduct(ProductDTO productDTO) throws BrandNotFoundException {
         Product product = new Product();
         product.setProductName(productDTO.getProductName());
         product.setDescription(productDTO.getDescription());
@@ -63,7 +69,11 @@ public class ProductServiceImpl implements ProductService {
         product.setColorCode(productDTO.getColorCode());
         product.setPrice(productDTO.getPrice());
 
-        product.setBrandCode(productDTO.getBrandCode());
+        Optional<BrandDTO> brandDTO = brandService.getByCode(productDTO.getBrandCode());
+        if (!brandDTO.isPresent()) {
+            throw new BrandNotFoundException(productDTO.getBrandCode());
+        }
+        product.setBrandCode(brandDTO.get().getBrandCode());
 
         Product result = productRepository.save(product);
         return new ProductDTO() {{
