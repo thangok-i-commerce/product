@@ -10,6 +10,14 @@ public interface ProductService {
 
     Page<ProductDTO> getAllProducts();
 
+    Page<ProductDTO> queryProduct(
+            String brandCode,
+            String categoryCode,
+            String colorCode,
+            Long priceFrom,
+            Long priceTo
+    );
+
     Page<ProductDTO> searchProducts(String searchText);
 
     Optional<ProductDTO> getByCode(String productCode);

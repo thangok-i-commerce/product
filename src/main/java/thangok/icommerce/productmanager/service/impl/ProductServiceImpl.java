@@ -49,6 +49,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<ProductDTO> queryProduct(String brandCode, String categoryCode, String colorCode, Long priceFrom, Long priceTo) {
+        List<Product> productList = productRepository.query(brandCode, categoryCode, colorCode, priceFrom, priceTo);
+        if (productList.isEmpty()) {
+            return Page.empty();
+        }
+
+        List<ProductDTO> result = new ArrayList<>();
+        productList.stream().map(x -> new ProductDTO() {{
+            setId(x.getId());
+            setProductName(x.getProductName());
+            setDescription(x.getDescription());
+            setCategoryCode(x.getCategoryCode());
+            setColorCode(x.getColorCode());
+            setPrice(x.getPrice());
+            setBrandCode(x.getBrandCode());
+        }}).forEach(result::add);
+
+        return new PageImpl<>(result);
+    }
+
+    @Override
     public Page<ProductDTO> searchProducts(String searchText) {
         return null;
     }

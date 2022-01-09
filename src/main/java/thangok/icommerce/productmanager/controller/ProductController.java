@@ -23,6 +23,17 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/query")
+    public Page<ProductDTO> queryProducts(
+            @RequestParam(value = "brandCode", required = false) String brandCode,
+            @RequestParam(value = "categoryCode", required = false) String categoryCode,
+            @RequestParam(value = "colorCode", required = false) String colorCode,
+            @RequestParam(value = "priceFrom", required = false) Long priceFrom,
+            @RequestParam(value = "priceTo", required = false) Long priceTo
+    ) {
+        return productService.queryProduct(brandCode, categoryCode, colorCode, priceFrom, priceTo);
+    }
+
     @GetMapping("/{productCode}")
     public Optional<ProductDTO> getByCode(@PathVariable("productCode") String productCode) {
         return productService.getByCode(productCode);
