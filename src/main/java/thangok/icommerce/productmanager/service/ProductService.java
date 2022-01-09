@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import thangok.icommerce.productmanager.dto.ProductDTO;
 import thangok.icommerce.productmanager.service.exception.BrandNotFoundException;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface ProductService {
@@ -14,8 +15,8 @@ public interface ProductService {
             String brandCode,
             String categoryCode,
             String colorCode,
-            Long priceFrom,
-            Long priceTo
+            BigDecimal priceFrom,
+            BigDecimal priceTo
     );
 
     Page<ProductDTO> searchProducts(String searchText);

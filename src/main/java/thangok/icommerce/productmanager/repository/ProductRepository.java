@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import thangok.icommerce.productmanager.entity.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -24,7 +25,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
             @Param(value = "brandCode") String brandCode,
             @Param(value = "categoryCode") String categoryCode,
             @Param(value = "colorCode") String colorCode,
-            @Param(value = "priceFrom") Long priceFrom,
-            @Param(value = "priceTo") Long priceTo
+            @Param(value = "priceFrom") BigDecimal priceFrom,
+            @Param(value = "priceTo") BigDecimal priceTo
     );
 }

@@ -14,6 +14,7 @@ import thangok.icommerce.productmanager.repository.ProductRepository;
 import thangok.icommerce.productmanager.service.ProductService;
 import thangok.icommerce.productmanager.service.exception.BrandNotFoundException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDTO> queryProduct(String brandCode, String categoryCode, String colorCode, Long priceFrom, Long priceTo) {
+    public Page<ProductDTO> queryProduct(String brandCode, String categoryCode, String colorCode, BigDecimal priceFrom, BigDecimal priceTo) {
         List<Product> productList = productRepository.query(brandCode, categoryCode, colorCode, priceFrom, priceTo);
         if (productList.isEmpty()) {
             return Page.empty();

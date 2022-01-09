@@ -9,6 +9,7 @@ import thangok.icommerce.productmanager.dto.ProductDTO;
 import thangok.icommerce.productmanager.service.ProductService;
 import thangok.icommerce.productmanager.service.exception.BrandNotFoundException;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
@@ -28,8 +29,8 @@ public class ProductController {
             @RequestParam(value = "brandCode", required = false) String brandCode,
             @RequestParam(value = "categoryCode", required = false) String categoryCode,
             @RequestParam(value = "colorCode", required = false) String colorCode,
-            @RequestParam(value = "priceFrom", required = false) Long priceFrom,
-            @RequestParam(value = "priceTo", required = false) Long priceTo
+            @RequestParam(value = "priceFrom", required = false) BigDecimal priceFrom,
+            @RequestParam(value = "priceTo", required = false) BigDecimal priceTo
     ) {
         return productService.queryProduct(brandCode, categoryCode, colorCode, priceFrom, priceTo);
     }
